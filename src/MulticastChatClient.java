@@ -15,6 +15,19 @@ public class MulticastChatClient {
         // Determine the Ip Address of a host, given the host name
         InetAddress group = InetAddress.getByName("225.4.5.6");
 
+        // Joins a multicast group
+        chatMulticastSocket.joinGroup(group);
 
+        // Prompt a user to enter a message
+        String msg = "";
+        System.out.println("Type a message for the server: ");
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        msg = br.readLine();
+
+        // Send the message to Multicast address
+        DatagramPacket data = new DatagramPacket(msg.getBytes(), 0, msg.length(), group, portnumber);
+
+        // Close the socket
+        chatMulticastSocket.close();
     }
 }
