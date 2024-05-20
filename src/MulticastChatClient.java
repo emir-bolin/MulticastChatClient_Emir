@@ -1,11 +1,12 @@
 import java.net.*;
 import java.io.*;
+
 public class MulticastChatClient {
     public static void main(String[] args) throws Exception {
 
         // Default port number we are going to use
         int portnumber = 8001;
-        if (args.length >= 1){
+        if (args.length >= 1) {
             portnumber = Integer.parseInt(args[0]);
         }
 
@@ -14,6 +15,7 @@ public class MulticastChatClient {
 
         // Determine the Ip Address of a host, given the host name
         InetAddress group = InetAddress.getByName("225.4.5.6");
+        System.out.println(group);
 
         // Joins a multicast group
         chatMulticastSocket.joinGroup(group);
@@ -26,6 +28,7 @@ public class MulticastChatClient {
 
         // Send the message to Multicast address
         DatagramPacket data = new DatagramPacket(msg.getBytes(), 0, msg.length(), group, portnumber);
+        chatMulticastSocket.send(data);
 
         // Close the socket
         chatMulticastSocket.close();
